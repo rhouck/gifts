@@ -84,6 +84,15 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
 
+#highrise cms API
+HIGHRISE_CONFIG = {'server': 'harmonyspence', 'auth': '8170f80eac5ace00364b8d81eac26dac', 'email': 'dropbox@35586853.harmonyspence.highrisehq.com'}
+
+
+# register parse
+from parse_rest.connection import register
+register("d15EqFH2Oa2cIfoynHnII1GHsN0xUQIHOuuRXyJr", "0Au8rhZh3747xrXgCVWaMVCMwmzsKyrb4hzwbp3Q")
+
+
 
 if host == 'RYANs-MacBook-Air-3.local':
     from settings_local import *
