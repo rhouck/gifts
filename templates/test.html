@@ -1,0 +1,35 @@
+{% load staticfiles %}
+
+<html>
+<head>
+<style>
+    /*
+    @font-face {
+    font-family: 'zebrazil';
+    src: url('{% static 'fonts/zebrazil.ttf' %}');
+    src: local('{% static 'fonts/zebrazil.ttf' %}');
+  }
+  */
+   @font-face {
+    font-family: Al;
+    src: url("{% static 'fonts/zebrazil.ttf' %}");
+    
+  }
+
+ .cust-logo {
+    /*
+    padding: 18px 28px;
+    line-height: normal;
+    */
+    font-family: Al;     
+    
+    font-size: 44px;
+    color: #ef3c02;
+}
+    
+  </style>
+</head>
+<body>
+	<div class="cust-logo">Hello</div>
+</body>
+</html>

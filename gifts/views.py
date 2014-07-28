@@ -55,4 +55,5 @@ def splash(request):
 		return render_to_response('splash.html', {'form': form}, context_instance=RequestContext(request))
 
 def confirmation(request):	
+	return render_to_response('test.html', {}, context_instance=RequestContext(request))
 	return render_to_response('confirmation.html', {}, context_instance=RequestContext(request))

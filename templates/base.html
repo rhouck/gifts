@@ -42,13 +42,34 @@
    
     <!-- Included JS Files -->
 	<script src={% static "flatr/Template/photo/javascripts/modernizr.foundation.js" %} ></script>
+  
+  <style>
+ 
+   
+
+@font-face {
+    font-family: Alex;
+    src: url("{% static 'fonts/AlexandriaFLF-Bold.ttf' %}");
     
+  }
+ .cust-logo {
+    /*
+    padding: 18px 28px;
+    line-height: normal;
+    */
+    font-family: Alex;     
+    font-size: 44px;
+    color: #ef3c02;
+}
+
+  </style>
+
 </head>
 <body>
 
 	<!-- Loader -->
 	<div id="loading">
-    	<img src={% static "flatr/Template/photo/images/loader.gif" %} alt="Flatr - Metro Parallax Multipurpose Coming Soon Website Loader"/>
+    	<img src={% static "flatr/Template/photo/images/loader.gif" %} alt="Harmony & Spence - Coming Soon"/>
     </div>
 
 	<!-- HEADER -->
@@ -56,13 +77,12 @@
     
     	<!-- LOGO -->
     	<div class="logo">
-        	
-            <a href="{% url 'splash' %}#homepage" title="Flatr - Metro Parallax Multipurpose Coming Soon"><img src={% static "flatr/Template/photo/images/logo.png" %} alt="Flatr - Metro Parallax Multipurpose Coming Soon"></a>
-            
-            
-            {% comment %}
-            <a href="{% url 'splash' %}#homepage" title="Harmony & Spence - Coming Soon"><img src={% static "H&S-Logo-Teal.png" %} alt="Harmony & Spence - Coming Soon">
-        {% endcomment %}
+           <div class="hide-for-small">
+                <a href="{% url 'splash' %}#homepage" title="Harmony & Spence - Coming Soon"><div class="cust-logo">Harmony & Spence</div></a>
+           </div>
+           <div class="responsive-nav show-for-small" onchange="moveTo(this.value)" onFocus="moveTo(this.value)">
+                <a href="{% url 'splash' %}#homepage" title="Harmony & Spence - Coming Soon"><div class="cust-logo" style="font-size: 20px;">Harmony & Spence</div></a>
+            </div>
         </div>
         
         <!-- NAVIGATION -->
@@ -87,7 +107,6 @@
 
             <!-- Mobile Navigation -->
             <select class="responsive-nav show-for-small" onchange="moveTo(this.value)" onFocus="moveTo(this.value)">
-            	<option value="" selected="">Main Navigation</option>
             	<option value="#homepage">Home</option>
             	<option value="#subscribe">Subscribe</option>
             	{% comment %}
