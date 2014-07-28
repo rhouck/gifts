@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% url 'splash' as splash_page %} 
 
 <!DOCTYPE html>
 <!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
@@ -9,7 +10,7 @@
 	<meta charset="utf-8" />
     
     <!-- Website Title & Description -->
-    <title>Flatr - Metro Parallax Multipurpose Coming Soon</title>
+    <title>H&S</title>
     <meta name="description" content="Flatr - Metro Parallax Multipurpose Coming Soon">
     
     <!-- Set the viewport width to device width for mobile -->
@@ -55,78 +56,74 @@
     
     	<!-- LOGO -->
     	<div class="logo">
-        	<a href="#homepage" title="Flatr - Metro Parallax Multipurpose Coming Soon"><img src={% static "flatr/Template/photo/images/logo.png" %} alt="Flatr - Metro Parallax Multipurpose Coming Soon"></a>
+        	
+            <a href="{% url 'splash' %}#homepage" title="Flatr - Metro Parallax Multipurpose Coming Soon"><img src={% static "flatr/Template/photo/images/logo.png" %} alt="Flatr - Metro Parallax Multipurpose Coming Soon"></a>
+            
+            
+            {% comment %}
+            <a href="{% url 'splash' %}#homepage" title="Harmony & Spence - Coming Soon"><img src={% static "H&S-Logo-Teal.png" %} alt="Harmony & Spence - Coming Soon">
+        {% endcomment %}
         </div>
         
         <!-- NAVIGATION -->
-        <ul class="nav-bar hide-for-small">
-            <li class="active"><a href="#homepage">HOME</a></li>
-            <li><a href="#subscribe">SUBSCRIBE</a></li>
-            <li><a href="#twitter">TWITTER</a></li>
-            <li><a href="http://www.themeforest.net" target="_blank">PURCHASE</a></li>
-        </ul>
-        
-        <!-- SOCIAL MEDIA -->
-        <div class="header-social-media hide-for-small">
-        	<a href="http://www.facebook.com/AvaPremiumThemes" target="_blank" class="header-social-button-top-left"></a>
-        	<a href="https://twitter.com/AVAThemes" target="_blank" class="header-social-button-top-right"></a>
-        	<a href="#" target="_blank" class="header-social-button-bottom-left"></a>
-        	<a href="http://dribbble.com/AVAThemes" target="_blank" class="header-social-button-bottom-right"></a>
-        </div>
-        
-        <!-- Mobile Navigation -->
-        <select class="responsive-nav show-for-small" onchange="moveTo(this.value)" onFocus="moveTo(this.value)">
-        	<option value="" selected="">Main Navigation</option>
-        	<option value="#homepage">Home</option>
-        	<option value="#subscribe">Subscribe</option>
-        	<option value="#twitter">Social Media</option>
-        	<option value="http://www.themeforest.net">Purchase</option>
-        	<option value="http://www.facebook.com/AvaPremiumThemes">Facebook</option>
-        	<option value="https://twitter.com/AVAThemes">Twitter</option>
-        	<option value="http://dribbble.com/AVAThemes">Dribbble</option>
-		</select>
+        {% if request.get_full_path = splash_page %}
+            <ul class="nav-bar hide-for-small">
+                <li class="active"><a href="#homepage">HOME</a></li>
+                <li><a href="#subscribe">SUBSCRIBE</a></li>
+                {% comment %}
+                <li><a href="#twitter">TWITTER</a></li>
+                {% endcomment %}
+            </ul>
+            
+            {% comment %}
+            <!-- SOCIAL MEDIA -->
+            <div class="header-social-media hide-for-small">
+            	<a href="http://www.facebook.com/AvaPremiumThemes" target="_blank" class="header-social-button-top-left"></a>
+            	<a href="https://twitter.com/AVAThemes" target="_blank" class="header-social-button-top-right"></a>
+            	<a href="#" target="_blank" class="header-social-button-bottom-left"></a>
+            	<a href="http://dribbble.com/AVAThemes" target="_blank" class="header-social-button-bottom-right"></a>
+            </div>
+            {% endcomment %}
+
+            <!-- Mobile Navigation -->
+            <select class="responsive-nav show-for-small" onchange="moveTo(this.value)" onFocus="moveTo(this.value)">
+            	<option value="" selected="">Main Navigation</option>
+            	<option value="#homepage">Home</option>
+            	<option value="#subscribe">Subscribe</option>
+            	{% comment %}
+                <option value="#twitter">Social Media</option>
+            	<option value="http://www.facebook.com/AvaPremiumThemes">Facebook</option>
+            	<option value="https://twitter.com/AVAThemes">Twitter</option>
+            	<option value="http://dribbble.com/AVAThemes">Dribbble</option>
+    		    {% endcomment %}
+            </select>
+        {% endif %}
     </div>
 
 	<!-- Homepage -->
 	<div class="homepage-container" id="homepage">
     	<div class="overlay"></div>
         <div class="homepage-content">
-            <h1 class="homepage-title">METRO IS A CODE<br>NAME OF A DESIGN LANGUAGE!</h1>
-            <div class="divider"></div>
-            <div class="countdown-container twelve columns"></div>
-    	</div>
+            {% block main %}
+            
+    	   {% endblock %}
+        </div>
     </div>
     <div id="wrapper">
-        <div class="subscribe" id="subscribe">
-            <div class="row">
-                <div class="twelve columns">
-                    <h1 class="page-title">SUBSCRIBE TODAY</h1>
-                	<div class="divider"></div>
-                    <p class="page-content">Microsoft's design team cites as an inspiration for the design language signs commonly found at public transport systems; for instance, those found on the King County Metro transit system, which serves the greater Seattle area where Microsoft has its headquarters.</p>
-                    <div class="subscription-form">
-                        <form method="post" action="contact.php">
-                            <div class="subscription-form-email">
-                                <input type="text" id="email" class="email hide-for-small" name="email" value="enter your email address here and click subscribe"/>
-                                <input type="text" id="email" class="email show-for-small" name="email" value="enter your email address"/>
-                            </div>
-                            <input type="submit" value="SUBSCRIBE" class="submit-button" name="submit" id="submitButton" title="Click here to submit your message!" />
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="twitter" id="twitter">
-        	<div class="twitter-inner">
-                <h1 class="homepage-title">HERE'S WHAT<br>WE'RE TWEETING ABOUT</h1>
-                <div class="tweets"></div>
-            </div>
-        </div>
+        {% block form %}
+        
+        {% endblock %}
+        
+        {% block birds %}
+        
+        {% endblock %}
         <div class="social-media" id="social-media">
             <div class="row">
                 <div class="twelve columns">
-                    <h1 class="page-title">SOCIAL MEDIA</h1>
+                    <h1 class="page-title">Amir totally sucks weiner</h1>
                 	<div class="divider"></div>
                     <p class="page-content">Microsoft's design team cites as an inspiration for the design language signs commonly found at public transport systems; for instance, those found on the King County Metro transit system, which serves the greater Seattle area where Microsoft has its headquarters.</p>
+                    {% comment %}
                     <div class="social-media-buttons">
                         <a href="#" class="behance-button"></a>
                         <a href="#" class="blogger-button"></a>
@@ -152,6 +149,7 @@
                         <a href="#" class="wordpress-button"></a>
                         <a href="#" class="youtube-button"></a>
                     </div>
+                    {% endcomment %}
                 </div>
             </div>
         </div>
@@ -161,7 +159,7 @@
                 	<a href="#homepage" class="to-top"></a>
                 </div>
                 <div class="twelve columns copyright">
-                	<a href="http://themeforest.net/user/AVAThemes/portfolio">Coming Soon Template Created by AVAThemes</a>
+                	<a href="http://themeforest.net/user/AVAThemes/portfolio">Harmony & Spence - Coming Soon</a>
                 </div>
             </div>
         </div>
@@ -195,6 +193,7 @@
     <!-- Initialize JS Plugins -->
 	<script src={% static "flatr/Template/photo/javascripts/app.js" %}></script>
     
+    {% comment %}
     <!-- Twitter -->
     <script src={% static "flatr/Template/photo/javascripts/tweetable.jquery.js" %} type="text/javascript"></script>
     <script type="text/javascript">
@@ -205,13 +204,14 @@
             });
         });
     </script>
+    {% endcomment %}
 
     <!-- Countdown -->
     <script type="text/javascript" src={% static "flatr/Template/photo/javascripts/jquery.countdown.js" %}></script>
 	<script type="text/javascript">
 		jQuery(function ($) {
 			var austDay = new Date();
-			austDay = new Date(2013, 6 - 1, 23);
+			austDay = new Date(2014, 8 - 1, 15);
 			$('.countdown-container').countdown({until: austDay});
 			$('#year').text(austDay.getFullYear());
 		});
@@ -292,9 +292,8 @@
 				thumb_links				:	1,			// Individual thumb links for each slide
 				thumbnail_navigation    :   0,			// Thumbnail navigation
 				slides 					:  	[			// Slideshow Images
-					{image : 'images/background-slideshow/1.jpg', url : ''},
-					{image : 'images/background-slideshow/2.jpg', url : ''},
-					{image : 'images/background-slideshow/3.jpg', url : ''}
+					{% block slider-images %}
+                    {% endblock %}
 				],
 				
 				// Theme Options			   

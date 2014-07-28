@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block main %}
+<h1 class="homepage-title">Harmony and Spence<br>Unexpected gifts at unexpected times</h1>
+
+<div class="divider"></div>
+
+<div class="countdown-container twelve columns"></div>
+
+
+{% endblock %}
+
+{% block form %}
+        <div class="subscribe" id="subscribe">
+            <div class="row">
+                <div class="twelve columns">
+                    <h1 class="page-title">SUBSCRIBE TODAY</h1>
+                    <div class="divider"></div>
+                    <p class="page-content">A great man once said the key to a woman's heart is an unexpected gift at an unexpected time. At Harmony & Spence we help you do just that - send your girl gifts when the timing is right.</br></br>
+                        We're hard at work curating the perfect rotation of modest but meaningful gifts to keep your girl happy. Sign up if you want more info.</p>
+                    <div class="subscription-form">
+                        <form method="post" action="">
+                            {% csrf_token %}
+                            <div class="subscription-form-email">
+                              
+                                {% for error in form.non_field_errors %}
+                                    {{error}}</p>
+                                {% endfor %}
+                                
+                                {% if form.email.errors %}
+                                    {{ form.email.errors }}</p>
+                                {% endif %}
+                                {{ form.email}}
+                                
+                                {% comment %}
+                                <input type="text" id="email" class="email hide-for-small" name="email" placeholder="enter your email address here and click subscribe"/>
+                                <input type="text" id="email" class="email show-for-small" name="email" placeholder="enter your email address"/>
+                                {% endcomment %}
+                            
+                            </div>
+                            <input type="submit" value="SUBSCRIBE" class="submit-button" name="submit" id="submitButton" title="Click here to submit your message!" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>    
+        {% endblock %}
+
+{% block slider-images %}
+    {image : "{% static '1flower.jpg' %}", url : ''},
+    {image : "{% static '2flower.jpg' %}", url : ''},
+{% endblock %}
+
+
+{% block birds %}
+        <div class="twitter" id="twitter">
+            <div class="twitter-inner">
+                <h1 class="homepage-title">UNEXPECTED GIFTS<br>HAVE UNEXPECTED BENEFITS</h1>
+                <div class="tweets"></div>
+            </div>
+        </div>
+{% endblock %}

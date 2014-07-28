@@ -1,15 +1,11 @@
+{% extends 'base.html' %}
 {% load staticfiles %}
 
+{% block main %}
+<h1 class="homepage-title">Well done!<br>You're a step closer to perfection</h1>
+{% endblock %}
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  </head>
-  <body>
 
- 
- <p>Thank you</p>
-  
-
-</body>
-</html>
+{% block slider-images %}
+    {image : "{% static '1hipsters.jpg' %}", url : ''},
+{% endblock %}
