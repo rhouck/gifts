@@ -65,9 +65,8 @@ def splash(request):
 		elif inputs['type'] == 'Contact' and con_form.is_valid():	
 			
 			cd = con_form.cleaned_data
-			
-			send_email(cd['email'], 'Inquiry from site', cd['message'])
-			
+			body = "%s:\n\n%s" % (cd['email'],cd['message'])
+			send_email(subject='Inquiry from site', body=body)
 			create_highrise_account(cd['email'], tag='contact-form')
 			
 			return HttpResponseRedirect(reverse('confirmation', kwargs={'message_type': 'contact'}))

@@ -8,7 +8,7 @@ from settings import HIGHRISE_CONFIG, DEFAULT_FROM_EMAIL
 
 from django.core.mail import send_mail
 
-def send_email(to_email, subject, body):
+def send_email(subject, body, to_email=DEFAULT_FROM_EMAIL):
 
 	send_mail(subject, body, DEFAULT_FROM_EMAIL,[to_email], fail_silently=False)
 	return True
