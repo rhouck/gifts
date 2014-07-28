@@ -4,7 +4,14 @@ from django.utils.timezone import utc
 from random import choice
 import pyrise
 
-from settings import HIGHRISE_CONFIG
+from settings import HIGHRISE_CONFIG, DEFAULT_FROM_EMAIL
+
+from django.core.mail import send_mail
+
+def send_email(to_email, subject, body):
+
+	send_mail(subject, body, DEFAULT_FROM_EMAIL,[to_email], fail_silently=False)
+	return True
 
 def gen_alphanum_key():
     key = ''

@@ -2,7 +2,9 @@
 {% load staticfiles %}
 
 {% block main %}
-<h1 class="homepage-title">Well done!<br>You're a step closer to perfection</h1>
+<h1 class="homepage-title">
+	{{ message|safe }}
+</h1>
 {% endblock %}
 
 

@@ -10,5 +10,6 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', 'gifts.views.splash', name='splash'),
-    url(r'^confirmation/$', 'gifts.views.confirmation', name='confirmation'),
+    url(r'^confirmation/(?P<message_type>[a-z]{0,10})/$', 'gifts.views.confirmation', name='confirmation'),
+
 )

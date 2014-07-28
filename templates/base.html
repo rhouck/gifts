@@ -86,11 +86,14 @@
         </div>
         
         <!-- NAVIGATION -->
-        {% if request.get_full_path = splash_page %}
             <ul class="nav-bar hide-for-small">
-                <li class="active"><a href="#homepage">HOME</a></li>
-                <li><a href="#subscribe">SUBSCRIBE</a></li>
-                {% comment %}
+                {% if request.get_full_path = splash_page %}
+                    <li class="active"><a href="#homepage">HOME</a></li>
+                    <li><a href="#subscribe">SUBSCRIBE</a></li>
+                    <li><a href="#social-media">CONTACT US</a></li>
+                {% endif %}
+                
+                {% comment %}  
                 <li><a href="#twitter">TWITTER</a></li>
                 {% endcomment %}
             </ul>
@@ -98,25 +101,33 @@
             {% comment %}
             <!-- SOCIAL MEDIA -->
             <div class="header-social-media hide-for-small">
-            	<a href="http://www.facebook.com/AvaPremiumThemes" target="_blank" class="header-social-button-top-left"></a>
-            	<a href="https://twitter.com/AVAThemes" target="_blank" class="header-social-button-top-right"></a>
+            	
+                <a href="https://www.facebook.com/harmonyandspence" target="_blank" class="header-social-button-top-left"></a>
+            	
+                <a href="https://twitter.com/AVAThemes" target="_blank" class="header-social-button-top-right"></a>
             	<a href="#" target="_blank" class="header-social-button-bottom-left"></a>
             	<a href="http://dribbble.com/AVAThemes" target="_blank" class="header-social-button-bottom-right"></a>
+                
             </div>
             {% endcomment %}
 
             <!-- Mobile Navigation -->
             <select class="responsive-nav show-for-small" onchange="moveTo(this.value)" onFocus="moveTo(this.value)">
-            	<option value="#homepage">Home</option>
-            	<option value="#subscribe">Subscribe</option>
-            	{% comment %}
+            	{% if request.get_full_path = splash_page %}
+                    <option value="#homepage">Home</option>
+                	<option value="#subscribe">Subscribe</option>
+            	   <option value="#social-media">Contact Us</option>
+                {% endif%}
+                
+                {% comment %}
+                <option><a href="https://www.facebook.com/harmonyandspence" target="_blank" class="header-social-button-top-left">Facebook</a></option>
+                
                 <option value="#twitter">Social Media</option>
-            	<option value="http://www.facebook.com/AvaPremiumThemes">Facebook</option>
             	<option value="https://twitter.com/AVAThemes">Twitter</option>
             	<option value="http://dribbble.com/AVAThemes">Dribbble</option>
     		    {% endcomment %}
             </select>
-        {% endif %}
+        
     </div>
 
 	<!-- Homepage -->
@@ -136,20 +147,28 @@
         {% block birds %}
         
         {% endblock %}
-        <div class="social-media" id="social-media">
+        
+        
+        
+                <div class="social-media" id="social-media">
             <div class="row">
                 <div class="twelve columns">
-                    <h1 class="page-title">Let's get our grooves back</h1>
-                	<div class="divider"></div>
-                    <p class="page-content">Microsoft's design team cites as an inspiration for the design language signs commonly found at public transport systems; for instance, those found on the King County Metro transit system, which serves the greater Seattle area where Microsoft has its headquarters.</p>
-                    {% comment %}
+                    <h1 class="page-title">Contact Us</h1>
+                    <div class="divider"></div>
+                    
+                    {% block contact %}
+                    
+                    {% endblock %}
+
+                    
                     <div class="social-media-buttons">
+                        <a href="https://www.facebook.com/harmonyandspence" class="facebook-button"></a>
+                        {% comment %}
                         <a href="#" class="behance-button"></a>
                         <a href="#" class="blogger-button"></a>
                         <a href="#" class="digg-button"></a>
                         <a href="#" class="dribbble-button"></a>
                         <a href="#" class="email-button"></a>
-                        <a href="#" class="facebook-button"></a>
                         <a href="#" class="flickr-button"></a>
                         <a href="#" class="gplus-button"></a>
                         <a href="#" class="instagram-button"></a>
@@ -167,11 +186,14 @@
                         <a href="#" class="vimeo-button"></a>
                         <a href="#" class="wordpress-button"></a>
                         <a href="#" class="youtube-button"></a>
+                        {% endcomment %}
                     </div>
-                    {% endcomment %}
+                    
                 </div>
             </div>
         </div>
+
+        
         <div class="footer">
             <div class="row">
                 <div class="twelve columns">

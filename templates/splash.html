@@ -17,27 +17,33 @@
                 <div class="twelve columns">
                     <h1 class="page-title">SUBSCRIBE TODAY</h1>
                     <div class="divider"></div>
-                    <p class="page-content">A great man once said the key to a woman's heart is an unexpected gift at an unexpected time. At Harmony & Spence we help you do just that - send your girl gifts when the timing is right.</br></br>
-                        We're hard at work curating the perfect rotation of modest but meaningful gifts to keep your girl happy. Sign up if you want more info.</p>
+                    <p class="page-content">
+                        "The key to a woman's heart is an unexpected gift at an unexpected time." -- Sean Connery</br>
+                        We're with Sean: at Harmony & Spence we help you send your girl gifts when the timing is right.</br> 
+                        Our team curates the perfect rotation of modest but meaningful gifts to keep your girl smiling.</br>    
+                        Sign up to get more info.
+                    </p>
                     <div class="subscription-form">
                         <form method="post" action="">
                             {% csrf_token %}
                             <div class="subscription-form-email">
                               
-                                {% for error in form.non_field_errors %}
+                                {% for error in sub_form.non_field_errors %}
                                     {{error}}</p>
                                 {% endfor %}
                                 
-                                {% if form.email.errors %}
-                                    {{ form.email.errors }}</p>
+                                {% if sub_form.email.errors %}
+                                    {{ sub_form.email.errors }}</p>
                                 {% endif %}
-                                {{ form.email}}
+                                {{ sub_form.email}}
                                 
                                 {% comment %}
                                 <input type="text" id="email" class="email hide-for-small" name="email" placeholder="enter your email address here and click subscribe"/>
                                 <input type="text" id="email" class="email show-for-small" name="email" placeholder="enter your email address"/>
                                 {% endcomment %}
-                            
+                                
+                                <input type="hidden" name="type" value="Subscribe">
+
                             </div>
                             <input type="submit" value="SUBSCRIBE" class="submit-button" name="submit" id="submitButton" title="Click here to submit your message!" />
                         </form>
@@ -60,4 +66,34 @@
                 <div class="tweets"></div>
             </div>
         </div>
+{% endblock %}
+
+
+{% block contact %}
+<p class="page-content">Have questions or suggestions?</p>
+
+<div class="subscription-form">
+    <form method="post" action="">
+        {% csrf_token %}
+        <div class="subscription-form-email">
+          
+            {% for error in con_form.non_field_errors %}
+                {{error}}</p>
+            {% endfor %}
+            
+            {% if con_form.email.errors %}
+                {{ con_form.email.errors }}</p>
+            {% endif %}
+            {{ con_form.email }}
+            
+            {% if con_form.message.errors %}
+                {{ con_form.message.errors }}</p>
+            {% endif %}
+            {{ con_form.message}}
+
+            <input type="hidden" name="type" value="Contact">
+        </div>
+        <input type="submit" value="SUBSCRIBE" class="submit-button" name="submit" id="submitButton" title="Click here to submit your message!" />
+    </form>
+</div>
 {% endblock %}

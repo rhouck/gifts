@@ -92,6 +92,13 @@ HIGHRISE_CONFIG = {'server': 'harmonyspence', 'auth': '8170f80eac5ace00364b8d81e
 from parse_rest.connection import register
 register("d15EqFH2Oa2cIfoynHnII1GHsN0xUQIHOuuRXyJr", "0Au8rhZh3747xrXgCVWaMVCMwmzsKyrb4hzwbp3Q")
 
+# email setup
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'harmonyandspence@gmail.com'
+EMAIL_HOST_PASSWORD = 'Tilapia1'
+DEFAULT_FROM_EMAIL = 'harmonyandspence@gmail.com'
 
 
 if host == 'RYANs-MacBook-Air-3.local':
