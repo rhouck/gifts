@@ -2,21 +2,18 @@
 {% load staticfiles %}
 
 
-{% block main %}
-<h1 class="homepage-title">
-	{{ message|safe }}
-</h1>
+{% block first %}
+	<div class="homepage-container" id="homepage">
+	    <div class="overlay"></div>
+	        <div class="homepage-content">
+				<h1 class="homepage-title">
+					{{ message|safe }}
+				</h1>
+	        </div>
+	    </div>
+	</div>
 {% endblock %}
 
-{% block form %}
-        
-        
-        <div class="subscribe" id="subscribe">
-            <div class="row">
-                <div class="divider"></div>
-            </div>
-        </div>    
- {% endblock %}
 
 {% block slider-images %}
     {image : "{% static '3gift.jpg' %}", url : ''},

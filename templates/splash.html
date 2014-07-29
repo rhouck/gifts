@@ -1,65 +1,159 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 
-{% block main %}
-<h1 class="homepage-title">Coming Soon</br>Surprise Gifts For Your Special Someone<h1>
-<div class="divider"></div>
-<h1 class="homepage-title" style="color: #a8a8a8;">monthly and hand-curated</h1>
+{% block first %}
+    <div class="homepage-container" id="homepage">
+        <div class="overlay"></div>
+            <div class="homepage-content">
+                <h1 class="homepage-title">Coming Soon</br>Surprise Gifts For Your Special Someone<h1>
+                <div class="divider"></div>
+                <h1 class="homepage-title" style="color: #939393; font-weight: 500; 'font-size: 48px">Monthly and Hand-Curated</h1>
 
-{% comment %}
-<div class="countdown-container twelve columns"></div>
-{% endcomment %}
-
-
+                {% comment %}
+                <div class="countdown-container twelve columns"></div>
+                {% endcomment %}
+           
+            </div>
+        </div>
+    </div>
 {% endblock %}
 
-{% block form %}
-        
-        {% if sub_form.non_field_errors or sub_form.errors %}
-            <script>scrollTo("subscribe")</script>
-        {% endif %}
+{% block second %}  
 
-        <div class="subscribe" id="subscribe">
-            <div class="row">
-                <div class="twelve columns">
+    <!-- about section -->
+    {% if sub_form.non_field_errors or sub_form.errors %}
+        <script>scrollTo("subscribe")</script>
+    {% endif %}
+    <div class="social-media" id="about">
+        <div class="row">
+            <div class="twelve columns">
+                <h1 class="page-title">About Us</h1>
+                <div class="divider"></div>
+                
+                
+                <p class="page-content">
+                    Surprise gifts for your special someone is what we do.</br>
+                    We know you're busy. With H&S, that won't keep you from showing your lady how you feel.</br>
+                    With our monthly subscription service, H&S finely curates beautiful gifts for the special woman in your life.</br>
+                    Tell us a little bit about her and let us do the heavy lifting of finding a gift and sending it over to you.</br>
+                </p>
+                
+                
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!-- parallax break -->
+    <div class="twitter">
+        <div class="twitter-inner">
+            <h1 class="homepage-title">the key to a woman's heart is</br>an unexpected gift at an unexpected time</h1>
+        </div>
+    </div>
+
+    <!-- subscribe section -->
+    <div class="subscribe" id="subscribe">
+        <div class="row">
+            <div class="twelve columns">
+                
+                <h1 class="page-title">SUBSCRIBE TODAY</h1>
+                <div class="divider"></div>
+                <p class="page-content">
+                        We’re just a couple weeks from launching.</br></br>
+                        Subscribe to get on our mailing list so you can be the first to know when we're ready to go.</br>
+                        It’s free and we’ll never spam you. Promise.</br>
+                </p>
                     
-                    <h1 class="page-title">SUBSCRIBE TODAY</h1>
-                    <div class="divider"></div>
-                    <p class="page-content">
-                            We’re just a couple weeks from launching.</br></br>
-                            Subscribe to get on our mailing list so you can be the first to know when we're ready to go.</br>
-                            It’s free and we’ll never spam you. Promise.</br>
-                    </p>
-                        
-                    <div class="subscription-form">
-                        <form method="post" action="">
-                            {% csrf_token %}
-                            <div class="subscription-form-email">
-                              
-                                {% for error in sub_form.non_field_errors %}
-                                    {{error}}</p>
-                                {% endfor %}
-                                
-                                {% if sub_form.email.errors %}
-                                    {{ sub_form.email.errors }}</p>
-                                {% endif %}
-                                {{ sub_form.email}}
-                                
-                                {% comment %}
-                                <input type="text" id="email" class="email hide-for-small" name="email" placeholder="enter your email address here and click subscribe"/>
-                                <input type="text" id="email" class="email show-for-small" name="email" placeholder="enter your email address"/>
-                                {% endcomment %}
-                                
-                                <input type="hidden" name="type" value="Subscribe">
+                <div class="subscription-form">
+                    <form method="post" action="">
+                        {% csrf_token %}
+                        <div class="subscription-form-email">
+                          
+                            {% for error in sub_form.non_field_errors %}
+                                {{error}}</p>
+                            {% endfor %}
+                            
+                            {% if sub_form.email.errors %}
+                                {{ sub_form.email.errors }}</p>
+                            {% endif %}
+                            {{ sub_form.email}}
+                            
+                            {% comment %}
+                            <input type="text" id="email" class="email hide-for-small" name="email" placeholder="enter your email address here and click subscribe"/>
+                            <input type="text" id="email" class="email show-for-small" name="email" placeholder="enter your email address"/>
+                            {% endcomment %}
+                            
+                            <input type="hidden" name="type" value="Subscribe">
 
-                            </div>
-                            <input type="submit" value="SUBSCRIBE" class="submit-button" name="submit" id="submitButton" title="Click here to submit your message!" />
-                        </form>
-                    </div>
+                        </div>
+                        <input type="submit" value="SUBSCRIBE" class="submit-button" name="submit" id="submitButton" title="Click here to submit your message!" />
+                    </form>
                 </div>
             </div>
-        </div>    
-        {% endblock %}
+        </div>
+    </div>
+
+
+        
+
+    <!-- parallax break -->
+    <div class="twitter">
+        <div class="twitter-inner">
+            <h1 class="homepage-title">spontaneous monthly reminders that you care</h1>
+        </div>
+    </div>
+
+
+    <!-- contact us -->
+    {% if con_form.non_field_errors or con_form.errors %}
+        <script>scrollTo("contact")</script>
+    {% endif %}
+    <div class="social-media" id="contact">
+        <div class="row">
+            <div class="twelve columns">
+                <h1 class="page-title">Contact Us</h1>
+                <div class="divider"></div>
+                
+                
+                <p class="page-content">Have questions or suggestions?</p>
+
+                <div class="subscription-form">
+                    <form method="post" action="">
+                        {% csrf_token %}
+                        <div class="subscription-form-email">
+                            
+                            {% for error in con_form.non_field_errors %}
+                                {{error}}</p>
+                            {% endfor %}
+                            
+                            {% if con_form.email.errors %}
+                                {{ con_form.email.errors }}</p>
+                            {% endif %}
+                            {{ con_form.email }}
+                            
+                            {% if con_form.message.errors %}
+                                {{ con_form.message.errors }}</p>
+                            {% endif %}
+                            {{ con_form.message}}
+
+                            <input type="hidden" name="type" value="Contact">
+                        </div>
+                        <input type="submit" value="SUBMIT" class="submit-button" name="submit" id="submitButton" title="Click here to submit your message!" />
+                    </form>
+                </div>
+
+                <div class="social-media-buttons">
+                    <a href="https://www.facebook.com/harmonyandspence" class="facebook-button"></a>
+                    
+                </div>
+                
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
 
 {% block slider-images %}
     {image : "{% static '1flower.jpg' %}", url : ''},

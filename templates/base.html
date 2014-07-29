@@ -11,7 +11,7 @@
     
     <!-- Website Title & Description -->
     <title>H&S</title>
-    <meta name="description" content="Flatr - Metro Parallax Multipurpose Coming Soon">
+    <meta name="description" content="Harmony & Spence - Coming Soon">
     
     <!-- Set the viewport width to device width for mobile -->
     <meta name="viewport" content="width=device-width" />
@@ -104,11 +104,10 @@
         <!-- NAVIGATION -->
             <ul class="nav-bar hide-for-small">
                 {% if request.get_full_path = splash_page %}
+                    <li><a href="#about">ABOUT</a></li>   
                     <li><a href="#subscribe">SUBSCRIBE</a></li>
-                {% endif %}
-                    <li><a href="#about">ABOUT</a></li>
                     <li><a href="#contact">CONTACT US</a></li>
-                
+                {% endif %}
             </ul>
             
             {% comment %}
@@ -127,16 +126,14 @@
             <!-- Mobile Navigation -->
             <select class="responsive-nav show-for-small" onchange="moveTo(this.value)" onFocus="moveTo(this.value)">
             	{% if request.get_full_path = splash_page %}
-                	<option value="#subscribe">Subscribe</option>
-            	{% endif%}
-                   <option value="#about">About</option>
-                   <option value="#social-media">Contact Us</option>
+                    <option value="#about">About</option>
+                    <option value="#subscribe">Subscribe</option>
+                    <option value="#contact">Contact Us</option>
+                {% endif %}
                 
-                
+
                 {% comment %}
-                <option><a href="https://www.facebook.com/harmonyandspence" target="_blank" class="header-social-button-top-left">Facebook</a></option>
-                
-                
+                <option><a href="https://www.facebook.com/harmonyandspence" target="_blank" class="header-social-button-top-left">Facebook</a></option> 
             	<option value="https://twitter.com/AVAThemes">Twitter</option>
             	<option value="http://dribbble.com/AVAThemes">Dribbble</option>
     		    {% endcomment %}
@@ -145,106 +142,13 @@
     </div>
 
 	<!-- Homepage -->
-	<div class="homepage-container" id="homepage">
-    	<div class="overlay"></div>
-        <div class="homepage-content">
-            {% block main %}
-            
-    	   {% endblock %}
-        </div>
-    </div>
+	{% block first %}    
+    {% endblock %}
     <div id="wrapper">
-        {% block form %}
         
+        {% block second %}
         {% endblock %}
-        
-        <div class="twitter" id="about">
-            <div class="twitter-inner">
-                <h1 class="homepage-title">Surprise gifts for your special</br>someone is what we do</h1>
-                <p class="page-content" style="color: white;"> 
-                    We know you're busy. With H&S, that won't keep you from showing your lady how you feel.</br>
-                    With our monthly subscription service, H&S finely curates beautiful gifts for the special woman in your life.</br>
-                    Tell us a little bit about her and let us do the heavy lifting of finding a gift and sending it over to you.</br>
-                </p>
          
-            </div>
-        </div>
-            
-
-            {% if con_form.non_field_errors or con_form.errors %}
-                <script>scrollTo("contact")</script>
-            {% endif %}
-        
-            <div class="social-media" id="contact">
-            <div class="row">
-                <div class="twelve columns">
-                    <h1 class="page-title">Contact Us</h1>
-                    <div class="divider"></div>
-                    
-                    
-                    <p class="page-content">Have questions or suggestions?</p>
-
-                    <div class="subscription-form">
-                        <form method="post" action="">
-                            {% csrf_token %}
-                            <div class="subscription-form-email">
-                                
-                                {% for error in con_form.non_field_errors %}
-                                    {{error}}</p>
-                                {% endfor %}
-                                
-                                {% if con_form.email.errors %}
-                                    {{ con_form.email.errors }}</p>
-                                {% endif %}
-                                {{ con_form.email }}
-                                
-                                {% if con_form.message.errors %}
-                                    {{ con_form.message.errors }}</p>
-                                {% endif %}
-                                {{ con_form.message}}
-
-                                <input type="hidden" name="type" value="Contact">
-                            </div>
-                            <input type="submit" value="SUBMIT" class="submit-button" name="submit" id="submitButton" title="Click here to submit your message!" />
-                        </form>
-                    </div>
-
-               
-
-                    
-                    <div class="social-media-buttons">
-                        <a href="https://www.facebook.com/harmonyandspence" class="facebook-button"></a>
-                        {% comment %}
-                        <a href="#" class="behance-button"></a>
-                        <a href="#" class="blogger-button"></a>
-                        <a href="#" class="digg-button"></a>
-                        <a href="#" class="dribbble-button"></a>
-                        <a href="#" class="email-button"></a>
-                        <a href="#" class="flickr-button"></a>
-                        <a href="#" class="gplus-button"></a>
-                        <a href="#" class="instagram-button"></a>
-                        <a href="#" class="lastfm-button"></a>
-                        <a href="#" class="linkedin-button"></a>
-                        <a href="#" class="livejournal-button"></a>
-                        <a href="#" class="myspace-button"></a>
-                        <a href="#" class="paypal-button"></a>
-                        <a href="#" class="pinterest-button"></a>
-                        <a href="#" class="reddit-button"></a>
-                        <a href="#" class="soundcloud-button"></a>
-                        <a href="#" class="stumbleupon-button"></a>
-                        <a href="#" class="tumblr-button"></a>
-                        <a href="#" class="twitter-button"></a>
-                        <a href="#" class="vimeo-button"></a>
-                        <a href="#" class="wordpress-button"></a>
-                        <a href="#" class="youtube-button"></a>
-                        {% endcomment %}
-                    </div>
-                    
-                </div>
-            </div>
-        </div>
-
-        
         <div class="footer">
             <div class="row">
                 <div class="twelve columns">
