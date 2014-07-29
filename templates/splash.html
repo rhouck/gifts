@@ -2,16 +2,23 @@
 {% load staticfiles %}
 
 {% block main %}
-<h1 class="homepage-title">Unexpected Gifts<br>At Unexpected Times</h1>
-
+<h1 class="homepage-title">Coming Soon</br>Surprise Gifts For Your Special Someone<h1>
 <div class="divider"></div>
+<h1 class="homepage-title">monthly and hand-curated</h1>
 
+{% comment %}
 <div class="countdown-container twelve columns"></div>
+{% endcomment %}
 
 
 {% endblock %}
 
 {% block form %}
+        
+        {% if sub_form.non_field_errors or sub_form.errors %}
+            <script>scrollTo("subscribe")</script>
+        {% endif %}
+
         <div class="subscribe" id="subscribe">
             <div class="row">
                 <div class="twelve columns">
@@ -57,7 +64,10 @@
 
 {% block slider-images %}
     {image : "{% static '1flower.jpg' %}", url : ''},
-    {image : "{% static '2flower.jpg' %}", url : ''},
+    {image : "{% static '3macs.jpg' %}", url : ''},
+    {image : "{% static '1macs.jpg' %}", url : ''},
+    {image : "{% static '1choc.png' %}", url : ''},
+    {image : "{% static '2choc.png' %}", url : ''},
 {% endblock %}
 
 
@@ -71,31 +81,3 @@
 {% endblock %}
 
 
-{% block contact %}
-<p class="page-content">Have questions or suggestions?</p>
-
-<div class="subscription-form">
-    <form method="post" action="">
-        {% csrf_token %}
-        <div class="subscription-form-email">
-          
-            {% for error in con_form.non_field_errors %}
-                {{error}}</p>
-            {% endfor %}
-            
-            {% if con_form.email.errors %}
-                {{ con_form.email.errors }}</p>
-            {% endif %}
-            {{ con_form.email }}
-            
-            {% if con_form.message.errors %}
-                {{ con_form.message.errors }}</p>
-            {% endif %}
-            {{ con_form.message}}
-
-            <input type="hidden" name="type" value="Contact">
-        </div>
-        <input type="submit" value="SUBMIT" class="submit-button" name="submit" id="submitButton" title="Click here to submit your message!" />
-    </form>
-</div>
-{% endblock %}

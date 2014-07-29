@@ -95,4 +95,15 @@ def confirmation(request, message_type):
 	else:
 		raise Http404
 
-	return render_to_response('confirmation.html', {'message': message}, context_instance=RequestContext(request))
+	inputs = request.POST if request.POST else None
+	form = ContactForm(inputs)
+
+	if (inputs) and form.is_valid():
+
+		cd = form.cleaned_data
+		body = "%s:\n\n%s" % (cd['email'],cd['message'])
+		send_email(subject='Inquiry from site', body=body)
+		create_highrise_account(cd['email'], tag='contact-form')
+
+
+	return render_to_response('confirmation.html', {'message': message, 'con_form': form}, context_instance=RequestContext(request))
