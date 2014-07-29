@@ -89,9 +89,9 @@ def splash(request):
 def confirmation(request, message_type):
 	
 	if message_type == 'subscribe':
-		message = "Well done!<br>You're a step closer to perfection"
+		message = "Great!</br>We'll reach out as soon as H&S</br>officially launches."
 	elif message_type == 'contact':
-		message = "Thanks!<br>We'll get back to you ASAP"
+		message = "Thank you for the message!</br>We'll get back to you ASAP"
 	else:
 		raise Http404
 
