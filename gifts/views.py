@@ -83,7 +83,7 @@ def splash(request):
 			sub_form.errors['__all__'] = sub_form.error_class([err])
 		elif inputs and inputs['type'] == 'Contact':
 			con_form.errors['__all__'] = con_form.error_class([err])
-		return render_to_response('splash.html', {'sub_form': sub_form, 'con_form': con_form}, context_instance=RequestContext(request))
+		return render_to_response('splash.html', {'sub_form': sub_form, 'con_form': con_form, 'live': LIVE}, context_instance=RequestContext(request))
 
 
 
@@ -96,4 +96,4 @@ def confirmation(request, message_type):
 	else:
 		raise Http404
 
-	return render_to_response('confirmation.html', {'message': message}, context_instance=RequestContext(request))
+	return render_to_response('confirmation.html', {'message': message, 'live': LIVE}, context_instance=RequestContext(request))
