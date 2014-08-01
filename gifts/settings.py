@@ -51,7 +51,9 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.static",
     "django.core.context_processors.tz",
     "django.contrib.messages.context_processors.messages",
-    'django.core.context_processors.request')
+    'django.core.context_processors.request',
+     # custom processors 
+    'gifts.context_processors.google_analytics',)
 
 ROOT_URLCONF = 'gifts.urls'
 
@@ -100,6 +102,9 @@ EMAIL_HOST_USER = 'harmonyandspence@gmail.com'
 EMAIL_HOST_PASSWORD = 'Tilapia1'
 DEFAULT_FROM_EMAIL = 'harmonyandspence@gmail.com'
 
+# google analytics
+GOOGLE_ANALYTICS_PROPERTY_ID = 'UA-53263617-1'
+GOOGLE_ANALYTICS_DOMAIN = 'harmonyandspence.com'
 
 if host == 'RYANs-MacBook-Air-3.local':
     from settings_local import *
