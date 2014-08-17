@@ -98,13 +98,13 @@ register("d15EqFH2Oa2cIfoynHnII1GHsN0xUQIHOuuRXyJr", "0Au8rhZh3747xrXgCVWaMVCMwm
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'harmonyandspence@gmail.com'
-EMAIL_HOST_PASSWORD = 'Tilapia1'
-DEFAULT_FROM_EMAIL = 'harmonyandspence@gmail.com'
+EMAIL_HOST_USER = 'surprisr.co@gmail.com'
+EMAIL_HOST_PASSWORD = 'wouldnotbang'
+DEFAULT_FROM_EMAIL = 'surprisr.co@gmail.com'
 
 # google analytics
-GOOGLE_ANALYTICS_PROPERTY_ID = 'UA-53263617-1'
-GOOGLE_ANALYTICS_DOMAIN = 'harmonyandspence.com'
+GOOGLE_ANALYTICS_PROPERTY_ID = 'UA-53887988-1'
+GOOGLE_ANALYTICS_DOMAIN = 'surprisr.co'
 
 if host == 'RYANs-MacBook-Air-3.local':
     from settings_local import *

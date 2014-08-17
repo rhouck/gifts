@@ -22,24 +22,12 @@ from utils import Signups, create_highrise_account, send_email
 def splash(request):
 	
 	inputs = request.POST if request.POST else None
-	
+	form = SubscribeForm(inputs)
 	try:
-		# select form type
-		if (inputs):
-			if inputs['type'] == 'Subscribe':
-				sub_form = SubscribeForm(inputs)
-				con_form = ContactForm()
-			else:
-				sub_form = SubscribeForm()
-				con_form = ContactForm(inputs)
-		else:
-			sub_form = SubscribeForm()
-			con_form = ContactForm()
-			raise Exception()
 		
-		if inputs['type'] == 'Subscribe' and sub_form.is_valid():
+		if (inputs) and form.is_valid():
 			
-			cd = sub_form.cleaned_data
+			cd = form.cleaned_data
 			
 			# sign up new subscriber
 			if inputs['type'] == 'Subscribe':
@@ -60,30 +48,25 @@ def splash(request):
 				signup.save()
 					
 				return HttpResponseRedirect(reverse('confirmation', kwargs={'message_type': 'subscribe'}))
-			
-		# submit contact form
-		elif inputs['type'] == 'Contact' and con_form.is_valid():	
-			
-			cd = con_form.cleaned_data
-			body = "%s:\n\n%s" % (cd['email'],cd['message'])
-			send_email(subject='Inquiry from site', body=body)
-			create_highrise_account(cd['email'], tag='contact-form')
-			
-			return HttpResponseRedirect(reverse('confirmation', kwargs={'message_type': 'contact'}))
-
+				"""	
+				# submit contact form
+				elif inputs['type'] == 'Contact' and con_form.is_valid():	
+					
+					cd = con_form.cleaned_data
+					body = "%s:\n\n%s" % (cd['email'],cd['message'])
+					send_email(subject='Inquiry from site', body=body)
+					create_highrise_account(cd['email'], tag='contact-form')
+					
+					return HttpResponseRedirect(reverse('confirmation', kwargs={'message_type': 'contact'}))
+				"""
 		
 		else:
 			raise Exception()
 
-		if con_form.is_valid():
-			cd = form.cleaned_data
-
+		
 	except Exception as err:
-		if inputs and inputs['type'] == 'Subscribe':
-			sub_form.errors['__all__'] = sub_form.error_class([err])
-		elif inputs and inputs['type'] == 'Contact':
-			con_form.errors['__all__'] = con_form.error_class([err])
-		return render_to_response('splash.html', {'sub_form': sub_form, 'con_form': con_form,}, context_instance=RequestContext(request))
+		form.errors['__all__'] = form.error_class([err])
+		return render_to_response('home-subscribe.html', {'form': form}, context_instance=RequestContext(request))
 
 
 
