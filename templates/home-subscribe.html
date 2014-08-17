@@ -1,11 +1,22 @@
 {% load staticfiles %}
+{% load widget_tweaks %}
 
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8" />
-	<title>Conversion - Subscribe</title>
-	<link rel="shortcut icon" href={% static "conversion/templates/images/favicon.ico" %} type="image/x-icon">
+	<title>Surprisr</title>
+	
+	<meta property="og:image" content="http://www.surprisr.co/static/Surprisrlogonew.png" />
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="834">
+    <meta property="og:image:height" content="759">
+    <meta property="og:url" content="http://www.surprisr.co/" />
+    <meta property="og:title" content="Surprisr" />
+    <meta property="og:description" content="You suck at giving gifts. We can help." />
+	{% comment %}
+		<link rel="shortcut icon" href={% static "conversion/templates/images/favicon.ico" %} type="image/x-icon">
+	{% endcomment %}
 	<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />  
 	<link href={% static "conversion/templates/css/style.css" %} rel="stylesheet"/>  
 	<link href={% static "conversion/templates/css/colors/style-color-06.css" %} rel="stylesheet"/>    
@@ -26,7 +37,16 @@
 			<div class="row">
 				<div class="span12">
 				
-					<h1><a href="#"><img src={% static "conversion/templates/images/logo.png" %} alt="Convert" /></a></h1>
+					<h1>
+						<a href="#">
+						Surprisr
+						{% comment %}
+							<img src={% static "conversion/templates/images/logo.png" %} alt="Convert" />
+						{% endcomment %}
+						</a>
+					</h1>
+					
+					{% comment %}
 					<h2 class="menulink"><a href="#">Menu</a></h2>
 					
 					<!-- Start Menu -->
@@ -40,7 +60,7 @@
 						</ul> 
 					</div> 
 					<!-- End Menu -->
-					
+					{% endcomment %}
 				</div>
 				<div class="clearfix"></div>
 			</div>
@@ -62,13 +82,33 @@
 	        		
 	        			<div class="hero hero-narrrow">
 	        		
-	        			<h1>Something is about to change</h1>
-						<h2>Quisque id tincidunt dui augue. Suspendisse non lorem vel diam consectetur posuere. Nam eu enim gravida risus vehicula posuere. Hasellus consequat facilisis volutpat ma faucibus odio vitae semper. Ae volutpat lobortis. </h2>
+	        			<h1>You suck at giving gifts. We can help.</h1>
+						<h2>Sign up for a chance at becoming a better dude in your girl's eyes. Let us do the heavy lifting.</h2>
 						
 						<div class="clearfix"></div> 	
 						
 						<div class="subscribe">
-							      
+							
+							{% for error in form.non_field_errors %}
+                                {{error}}
+                            {% endfor %}
+                            
+                            {% if form.email.errors %}
+                                {{ form.email.errors }}
+                            {% endif %}
+							<form method="post" action="">
+		                        {% csrf_token %}
+		                        <div class="form-row">
+		                          
+		                            {{ form.email|add_class:"text login_input"}}
+		                            
+		          					<input type="submit" name="register" value="Subscribe" class="btn" data-loading-text="Loading..." />
+									<div class="clearfix"></div>
+		                        </div>
+		                        
+		                    </form>      
+									
+		                    {% comment %}
 							<form method="post" action="#" name="example"> 
 											
 								<div class="form-row">
@@ -78,15 +118,15 @@
 								</div>
 								
 							</form>
+							{% endcomment %}
 						
 						</div>
 						
 						<div class="clearfix"></div> 	
-						
-						<div class="icons">
-							<span class="glyph-item mega icon-arrow-down" aria-hidden="true"></span>
-						</div>
-						
+							<div class="icons">
+									<span id="scroll1" class="glyph-item mega icon-arrow-down" aria-hidden="true"></span>
+							</div>
+				
 						</div>
 	
 	        		</div>
@@ -103,67 +143,55 @@
 	
 </div>
 
-<div class="strip features">
+<div class="strip features" id="steps">
 
 	<div class="container">
 			 
         <div class="row">
 	    	
-	    	<div class="span3">
+	    	<div class="span4">
 	    	
 	        	<div class="inner">
 	        	
-	        		<span class="glyph-item mega icon-screen-desktop" aria-hidden="true" ></span>
+	        		<span class="glyph-item mega icon-user-female" aria-hidden="true" ></span>
 	    	
-		        	<h3>Responsive</h3>
+		        	<h3>Show us her</h3>
 		        	
-		        	<p>Fusce fermentum placerat magna ac pharetra. Aliquam euismod elit non ipsum lacinia consectetur.</p>
+		        	<p>Gifts need to be personalized. You send us her facebook, pinterest, or other social media profiles so we can get to know her.</p>
 		        	
 		        </div>
 	    	
 	    	</div> 
 	    	
-	    	<div class="span3">
+	    	<div class="span4">
 	    	
 	        	<div class="inner">
 	        	
-	        		<span class="glyph-item mega icon-emoticon-smile" aria-hidden="true" ></span>
+	        		<span class="glyph-item mega icon-magic-wand" aria-hidden="true" ></span>
 	    	
-		        	<h3>Simple &amp; Easy</h3>
+		        	<h3>We find gift</h3>
 		        	
-		        	<p>Maecenas sollicitudin luctus neque at auctor sum lacinia. Phasellus conseodio vitae semper. </p>
+		        	<p>Every couple months, our algoirthms and style team together find 2 or 3 gifts we think she would like. You pick your favorite and we shipt it to you.</p>
 		        	
 		        </div>
 	    	
 	    	</div> 
 	    	
-	    	<div class="span3">
+	    	<div class="span4">
 	    	
 	        	<div class="inner">
 	        	
-	        		<span class="glyph-item mega icon-users" aria-hidden="true" ></span>
+	        		<span class="glyph-item mega icon-heart" aria-hidden="true" ></span>
 	    	
-		        	<h3>Excellent Support</h3>
+		        	<h3>You get credit</h3>
 		        	
-		        	<p>Phasellus consequat facilisis volutpat ma faucibus odio vitae semper. Ae volutpat lobortis. </p>
+		        	<p>You present her with a spontaneous personlized gift. She wasn't expecting it. You are so thoguhtful. Now she shows you how special you are.</p>
 		        	
 		        </div>
 	    	
 	    	</div> 
 	    	
-	    	<div class="span3">
 	    	
-	        	<div class="inner">
-	        	
-	        		<span class="glyph-item mega icon-screen-smartphone" aria-hidden="true" ></span>
-	    	
-		        	<h3>Mobile Friendly</h3>
-		        	
-		        	<p>Phasellus consequat facilisis volutpat ma faucibus odio vitae semper. Ae volutpat lobortis. </p>
-		        	
-		        </div>
-	    	
-	    	</div> 
 
 	    	<div class="clearfix"></div>
 	    	        	
@@ -178,12 +206,15 @@
 <div id="footer">
 
 	<p> 
-		<a href="#"><span class="glyph-item mega icon-social-youtube" aria-hidden="true" ></span></a>
-		<a href="#"><span class="glyph-item mega icon-social-twitter" aria-hidden="true" ></span></a>
-		<a href="#"><span class="glyph-item mega icon-social-tumblr" aria-hidden="true" ></span></a>
-		<a href="#"><span class="glyph-item mega icon-social-facebook" aria-hidden="true" ></span></a>
-		<a href="#"><span class="glyph-item mega icon-social-dropbox" aria-hidden="true" ></span></a>
-		<a href="#"><span class="glyph-item mega icon-social-dribbble" aria-hidden="true" ></span></a>
+		{% comment %}
+			<a href="#"><span class="glyph-item mega icon-social-youtube" aria-hidden="true" ></span></a>
+			<a href="#"><span class="glyph-item mega icon-social-tumblr" aria-hidden="true" ></span></a>
+			<a href="#"><span class="glyph-item mega icon-social-dropbox" aria-hidden="true" ></span></a>
+		<a href="#"><span class="glyph-item mega icon-social-dribbble" aria-hidden="true" ></span></a>		
+		{% endcomment %}
+		<a href="https://twitter.com/SurprisrCo"><span class="glyph-item mega icon-social-twitter" aria-hidden="true" ></span></a>
+		<a href="https://www.facebook.com/pages/Surprisrco/879845972043137"><span class="glyph-item mega icon-social-facebook" aria-hidden="true" ></span></a>
+		
 	</p>
    	
 	Copyright &copy; 2014
@@ -196,6 +227,10 @@
 <script src={% static "conversion/templates/js/jquery.min.js" %}></script>
 <script src={% static "conversion/templates/js/respond.min.js" %}></script>
 <script src={% static "conversion/templates/js/scripts.js" %}></script>
-	 	        		
+<script>
+	$('#scroll1').click(function () {	
+		$('html, body').animate({ scrollTop: $("#steps").offset().top}, 1000);
+	});
+</script>	 	        		
 </body>
 </html>

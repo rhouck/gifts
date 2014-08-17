@@ -29,37 +29,35 @@ def splash(request):
 			
 			cd = form.cleaned_data
 			
-			# sign up new subscriber
-			if inputs['type'] == 'Subscribe':
-				# check if email already exists
-				existing = Signups.Query.all().filter(email=cd['email'])
-				existing = [e for e in existing]
-				#return HttpResponse(len(existing))
-				if existing:
-					raise Exception("Email already registered in system.")
+			# check if email already exists
+			existing = Signups.Query.all().filter(email=cd['email'])
+			existing = [e for e in existing]
+			#return HttpResponse(len(existing))
+			if existing:
+				raise Exception("Email already registered in system.")
+			
+			signup = Signups(email=cd['email'])
+			if LIVE:
+				signup.type = 'live'
+			else:
+				signup.type = 'test'
+			
+			signup.highrise_id = create_highrise_account(cd['email'], tag='landing-page')
+			signup.save()
 				
-				signup = Signups(email=cd['email'])
-				if LIVE:
-					signup.type = 'live'
-				else:
-					signup.type = 'test'
+			return HttpResponseRedirect(reverse('confirmation', kwargs={'message_type': 'subscribe'}))
+			"""	
+			# submit contact form
+			elif inputs['type'] == 'Contact' and con_form.is_valid():	
 				
-				signup.highrise_id = create_highrise_account(cd['email'], tag='landing-page')
-				signup.save()
-					
-				return HttpResponseRedirect(reverse('confirmation', kwargs={'message_type': 'subscribe'}))
-				"""	
-				# submit contact form
-				elif inputs['type'] == 'Contact' and con_form.is_valid():	
-					
-					cd = con_form.cleaned_data
-					body = "%s:\n\n%s" % (cd['email'],cd['message'])
-					send_email(subject='Inquiry from site', body=body)
-					create_highrise_account(cd['email'], tag='contact-form')
-					
-					return HttpResponseRedirect(reverse('confirmation', kwargs={'message_type': 'contact'}))
-				"""
-		
+				cd = con_form.cleaned_data
+				body = "%s:\n\n%s" % (cd['email'],cd['message'])
+				send_email(subject='Inquiry from site', body=body)
+				create_highrise_account(cd['email'], tag='contact-form')
+				
+				return HttpResponseRedirect(reverse('confirmation', kwargs={'message_type': 'contact'}))
+			"""
+	
 		else:
 			raise Exception()
 
