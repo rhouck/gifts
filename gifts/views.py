@@ -45,7 +45,7 @@ def splash(request):
 			signup.highrise_id = create_highrise_account(cd['email'], tag='landing-page')
 			signup.save()
 				
-			return HttpResponseRedirect(reverse('confirmation', kwargs={'message_type': 'subscribe'}))
+			return HttpResponseRedirect(reverse('confirmation', kwargs={}))
 			"""	
 			# submit contact form
 			elif inputs['type'] == 'Contact' and con_form.is_valid():	
@@ -64,17 +64,10 @@ def splash(request):
 		
 	except Exception as err:
 		form.errors['__all__'] = form.error_class([err])
-		return render_to_response('home-subscribe.html', {'form': form}, context_instance=RequestContext(request))
+		return render_to_response('splash.html', {'form': form}, context_instance=RequestContext(request))
 
 
 
-def confirmation(request, message_type):
+def confirmation(request):
 	
-	if message_type == 'subscribe':
-		message = "Great!</br>We'll reach out as soon as H&S</br>officially launches."
-	elif message_type == 'contact':
-		message = "Thank you for the message!</br>We'll get back to you ASAP"
-	else:
-		raise Http404
-
-	return render_to_response('confirmation.html', {'message': message}, context_instance=RequestContext(request))
+	return render_to_response('confirmation.html', {}, context_instance=RequestContext(request))
