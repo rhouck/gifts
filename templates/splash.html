@@ -2,6 +2,9 @@
 {% load staticfiles %}
 {% load widget_tweaks %}
 
+{% block head %}
+
+{% endblock %}
 
 
 {% block body %}
@@ -72,13 +75,15 @@
                             {% if form.email.errors %}
                                 {{ form.email.errors }}
                             {% endif %}
+                            
 							<form method="post" action="">
 		                        {% csrf_token %}
 		                        <div class="form-row">
 		                          
 		                            {{ form.email|add_class:"text login_input"}}
 		                            
-		          					<input type="submit" name="register" value="Subscribe" class="btn" data-loading-text="Loading..." />
+		                            
+		          					<input type="submit" name="register" value="Get Early Access" class="btn" data-loading-text="Loading..." />
 									<div class="clearfix"></div>
 		                        </div>
 		                        

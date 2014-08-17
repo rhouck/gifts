@@ -16,7 +16,7 @@ from dateutil.parser import parse
 from forms import *
 from settings import LIVE
 
-from utils import Signups, create_highrise_account, send_email
+from utils import *
 
 
 def splash(request):
@@ -36,7 +36,8 @@ def splash(request):
 			if existing:
 				raise Exception("Email already registered in system.")
 			
-			signup = Signups(email=cd['email'])
+			ref = gen_alphanum_key()
+			signup = Signups(email=cd['email'], ref=ref)
 			if LIVE:
 				signup.type = 'live'
 			else:
@@ -44,8 +45,12 @@ def splash(request):
 			
 			signup.highrise_id = create_highrise_account(cd['email'], tag='landing-page')
 			signup.save()
-				
-			return HttpResponseRedirect(reverse('confirmation', kwargs={}))
+			
+
+			rev = str(reverse('confirmation'))
+			rev += "?ref=%s" % (ref)
+			return HttpResponseRedirect(rev)	
+			
 			"""	
 			# submit contact form
 			elif inputs['type'] == 'Contact' and con_form.is_valid():	

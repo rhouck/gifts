@@ -3,10 +3,17 @@ import datetime
 from django.utils.timezone import utc
 from random import choice
 import pyrise
+import string
 
 from settings import HIGHRISE_CONFIG, DEFAULT_FROM_EMAIL
 
 from django.core.mail import send_mail
+
+def gen_alphanum_key():
+    key = ''
+    for i in range(8):
+        key += choice(string.uppercase + string.lowercase + string.digits)
+    return key
 
 def send_email(subject, body, to_email=DEFAULT_FROM_EMAIL):
 
