@@ -5,9 +5,33 @@ from random import choice
 import pyrise
 import string
 
-from settings import HIGHRISE_CONFIG, DEFAULT_FROM_EMAIL
+from settings import HIGHRISE_CONFIG, DEFAULT_FROM_EMAIL, EMAIL_HOST_USER, EMAIL_HOST_PASSWORD, LIVE
 
-from django.core.mail import send_mail
+from django.core.mail import send_mail, get_connection
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import get_template
+from django.template import Context
+from inlinestyler.utils import inline_css
+
+def send_welcome_email(to_email, count, ref):
+
+    plaintext = get_template('email_template/plain_text.txt')
+    htmly     = get_template('email_template/index.html')
+    d = Context({'count': count, 'ref': ref})
+    subject = "Great move | Surprisr"
+    text_content = plaintext.render(d)
+    html_content = htmly.render(d)
+    
+    html_content = inline_css(html_content)
+
+    connection = get_connection(username=DEFAULT_FROM_EMAIL, password=EMAIL_HOST_PASSWORD, fail_silently=False)
+    if LIVE:
+    	msg = EmailMultiAlternatives(subject, text_content, DEFAULT_FROM_EMAIL, [to_email], [HIGHRISE_CONFIG['email']], connection=connection)
+    else:
+    	msg = EmailMultiAlternatives(subject, text_content, DEFAULT_FROM_EMAIL, [to_email], connection=connection)
+    msg.attach_alternative(html_content, "text/html")
+    msg.send()
+
 
 def gen_alphanum_key():
     key = ''

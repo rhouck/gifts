@@ -62,6 +62,7 @@ def splash(request):
 				referral = Referrals(signup=signup, code=referred_by,)
 				referral.save()
 			
+			send_welcome_email(cd['email'], count, ref)
 
 			rev = str(reverse('confirmation', kwargs={'ref': ref}))
 			return HttpResponseRedirect(rev)	
