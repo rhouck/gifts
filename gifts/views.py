@@ -20,6 +20,15 @@ from utils import *
 
 
 def splash(request):
+
+	# get referral code if exists
+	inputs = request.GET if request.GET else None
+	form = ReferralForm(inputs)
+	referred_by = None
+	if (inputs) and form.is_valid():
+		cd = form.cleaned_data
+		referred_by = cd['ref']
+	
 	
 	inputs = request.POST if request.POST else None
 	form = SubscribeForm(inputs)
@@ -32,23 +41,29 @@ def splash(request):
 			# check if email already exists
 			existing = Signups.Query.all().filter(email=cd['email'])
 			existing = [e for e in existing]
-			#return HttpResponse(len(existing))
 			if existing:
 				raise Exception("Email already registered in system.")
 			
+			# get user count
+			count = get_count()
+
+			# create user
 			ref = gen_alphanum_key()
-			signup = Signups(email=cd['email'], ref=ref)
+			signup = Signups(email=cd['email'], ref=ref, count=count)
 			if LIVE:
 				signup.type = 'live'
+				signup.highrise_id = create_highrise_account(cd['email'], tag='landing-page')
 			else:
 				signup.type = 'test'
-			
-			signup.highrise_id = create_highrise_account(cd['email'], tag='landing-page')
 			signup.save()
 			
+			# add referral
+			if referred_by:
+				referral = Referrals(signup=signup, code=referred_by,)
+				referral.save()
+			
 
-			rev = str(reverse('confirmation'))
-			rev += "?ref=%s" % (ref)
+			rev = str(reverse('confirmation', kwargs={'ref': ref}))
 			return HttpResponseRedirect(rev)	
 			
 			"""	
@@ -73,6 +88,9 @@ def splash(request):
 
 
 
-def confirmation(request):
+def confirmation(request, ref):
 	
-	return render_to_response('confirmation.html', {}, context_instance=RequestContext(request))
+	signup = get_signup_by_ref(ref)	
+	return render_to_response('confirmation.html', {'ref': ref, 'count': signup.count}, context_instance=RequestContext(request))
+	#else:
+	#	raise Http404

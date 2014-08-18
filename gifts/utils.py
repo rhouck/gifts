@@ -20,11 +20,6 @@ def send_email(subject, body, to_email=DEFAULT_FROM_EMAIL):
 	send_mail(subject, body, DEFAULT_FROM_EMAIL,[to_email], fail_silently=False)
 	return True
 
-def gen_alphanum_key():
-    key = ''
-    for i in range(6):
-        key += choice(string.lowercase + string.uppercase + string.digits)
-    return key
 
 def current_time_aware():
     return datetime.datetime.utcnow().replace(tzinfo=utc)
@@ -32,6 +27,31 @@ def current_time_aware():
 
 class Signups(Object):
     pass
+class Referrals(Object):
+    pass
+class Counter(Object):
+    pass
+
+def get_count():
+
+	count = Counter.Query.all()
+	cur = None
+	for c in count:
+		cur = c
+	
+	try:
+		cur.count += 1
+		cur.save()
+	except:
+		pass
+	
+	return cur.count
+
+def get_signup_by_ref(ref):
+	signup = Signups.Query.get(ref=str(ref))
+	return signup
+
+
 
 def create_highrise_account(email, tag=None):
 	
