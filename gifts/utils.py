@@ -13,6 +13,13 @@ from django.template.loader import get_template
 from django.template import Context
 from inlinestyler.utils import inline_css
 
+class Signups(Object):
+    pass
+class Referrals(Object):
+    pass
+class Counter(Object):
+    pass
+
 def send_welcome_email(to_email, count, ref):
 
     plaintext = get_template('email_template/plain_text.txt')
@@ -32,6 +39,52 @@ def send_welcome_email(to_email, count, ref):
     msg.attach_alternative(html_content, "text/html")
     msg.send()
 
+def confirm_referral(ref):
+	
+	referrer = Signups.Query.all().filter(ref=ref)
+	referrer = [r for r in referrer]
+
+	if len(referrer) > 0:
+		referrer = referrer[0]
+		to_email = referrer.email
+		# send email to referrer
+		refs = Referrals.Query.all().filter(code=ref)
+
+		count = int(len([r for r in refs]))
+		count = 40
+		if count < 5:
+			subject = "Almost There | Exclusive discounts and priority access at Surprisr"
+			title = "%s/5 sign-ups" % (str(int(count)))
+			body = "Get 5 of your friends to sign up to cut the line and get exclusive discounts on your first gifts. Keep sharing the link below!"
+		if count == 5:
+			subject = "You've earned priority access to Surprisr!"
+			title = "You got 5 sign-ups!"
+			body = "You get to cut the line and will be offered exclusive discounts on your first gifts at Surprisr. Keep sharing - more rewards coming soon :)"
+		if count > 5:
+			subject = "You are incredible"
+			title = "You got %s sign-ups!" % (str(int(count)))
+			body = "Wow! Those that get more sign-ups will get rewarded. You have our word."
+
+		if count > 0:
+			plaintext = get_template('email_template/counter.txt')
+			htmly     = get_template('email_template/counter.html')
+			d = Context({'title': title, 'body': body, 'ref': ref})
+
+			text_content = plaintext.render(d)
+			html_content = htmly.render(d)
+
+			html_content = inline_css(html_content)
+
+			connection = get_connection(username=DEFAULT_FROM_EMAIL, password=EMAIL_HOST_PASSWORD, fail_silently=False)
+			if LIVE:
+				msg = EmailMultiAlternatives(subject, text_content, DEFAULT_FROM_EMAIL, [to_email], [HIGHRISE_CONFIG['email']], connection=connection)
+			else:
+				msg = EmailMultiAlternatives(subject, text_content, DEFAULT_FROM_EMAIL, [to_email], connection=connection)
+			msg.attach_alternative(html_content, "text/html")
+			msg.send()
+
+
+
 
 def gen_alphanum_key():
     key = ''
@@ -48,13 +101,6 @@ def send_email(subject, body, to_email=DEFAULT_FROM_EMAIL):
 def current_time_aware():
     return datetime.datetime.utcnow().replace(tzinfo=utc)
 
-
-class Signups(Object):
-    pass
-class Referrals(Object):
-    pass
-class Counter(Object):
-    pass
 
 def get_count():
 

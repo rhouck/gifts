@@ -57,10 +57,13 @@ def splash(request):
 				signup.type = 'test'
 			signup.save()
 			
+			
 			# add referral
 			if referred_by:
+				
 				referral = Referrals(signup=signup, code=referred_by,)
 				referral.save()
+				confirm_referral(referred_by)
 			
 			send_welcome_email(cd['email'], count, ref)
 
