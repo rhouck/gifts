@@ -51,7 +51,7 @@ def confirm_referral(ref):
 		refs = Referrals.Query.all().filter(code=ref)
 
 		count = int(len([r for r in refs]))
-		count = 40
+
 		if count < 5:
 			subject = "Almost There | Exclusive discounts and priority access at Surprisr"
 			title = "%s/5 sign-ups" % (str(int(count)))
