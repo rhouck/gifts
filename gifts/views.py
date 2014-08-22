@@ -19,6 +19,14 @@ from settings import LIVE
 from utils import *
 
 
+import django_rq
+redis_conn = django_rq.get_connection()
+"""
+from rq import Queue
+from worker import conn
+q = Queue(connection=conn)
+"""
+
 def splash(request):
 
 	# get referral code if exists
@@ -57,16 +65,8 @@ def splash(request):
 				signup.type = 'test'
 			signup.save()
 			
-			
-			# add referral
-			if referred_by:
-				
-				referral = Referrals(signup=signup, code=referred_by,)
-				referral.save()
-				confirm_referral(referred_by)
-			
-			send_welcome_email(cd['email'], count, ref)
-
+			result = django_rq.enqueue(bg_cust_setup, cd['email'], count, ref, referred_by)
+			#result = q.enqueue(bg_cust_setup, cd['email'], count, ref, referred_by)
 			rev = str(reverse('confirmation', kwargs={'ref': ref}))
 			return HttpResponseRedirect(rev)	
 			
@@ -87,6 +87,7 @@ def splash(request):
 
 		
 	except Exception as err:
+		
 		form.errors['__all__'] = form.error_class([err])
 		return render_to_response('splash.html', {'form': form}, context_instance=RequestContext(request))
 

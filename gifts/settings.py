@@ -33,6 +33,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'widget_tweaks',
+    "django_rq",
 )
 
 MIDDLEWARE_CLASSES = (
@@ -106,6 +107,48 @@ DEFAULT_FROM_EMAIL = 'surprisr.co@gmail.com'
 # google analytics
 GOOGLE_ANALYTICS_PROPERTY_ID = 'UA-53887988-1'
 GOOGLE_ANALYTICS_DOMAIN = 'surprisr.co'
+
+# setup redis queue
+"""
+RQ_QUEUES = {
+    
+    'default': {
+        'HOST': 'localhost',
+        'PORT': 6379,
+        'DB': 0,
+        'PASSWORD': 'some-password',
+        'DEFAULT_TIMEOUT': 360,
+    },
+    'high': {
+        'URL': os.getenv('REDISTOGO_URL', 'redis://localhost:6379'), # If you're on Heroku
+        'DB': 0,
+        'DEFAULT_TIMEOUT': 500,
+    },
+    'low': {
+        'HOST': 'localhost',
+        'PORT': 6379,
+        'DB': 0,
+    }
+}
+"""
+RQ_QUEUES = {
+    'default': {
+        'URL': os.getenv('REDISTOGO_URL', 'redis://localhost:6379'), # If you're on Heroku
+        'DB': 0,
+        'DEFAULT_TIMEOUT': 500,
+    },
+    'high': {
+        'URL': os.getenv('REDISTOGO_URL', 'redis://localhost:6379'), # If you're on Heroku
+        'DB': 0,
+        'DEFAULT_TIMEOUT': 500,
+    },
+    'low': {
+        'URL': os.getenv('REDISTOGO_URL', 'redis://localhost:6379'), # If you're on Heroku
+        'DB': 0,
+        'DEFAULT_TIMEOUT': 500,
+    }
+}
+
 
 if host == 'RYANs-MacBook-Air-3.local':
     from settings_local import *

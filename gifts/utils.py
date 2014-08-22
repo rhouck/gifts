@@ -13,12 +13,29 @@ from django.template.loader import get_template
 from django.template import Context
 from inlinestyler.utils import inline_css
 
+
+
+
+def count_words_at_url(number):
+    return number
+
+
 class Signups(Object):
     pass
 class Referrals(Object):
     pass
 class Counter(Object):
     pass
+
+
+def get_count():
+
+	count = Counter.Query.all()
+	cur = None
+	for c in count:
+		cur = c
+	
+	return cur.count
 
 def send_welcome_email(to_email, count, ref):
 
@@ -83,8 +100,29 @@ def confirm_referral(ref):
 			msg.attach_alternative(html_content, "text/html")
 			msg.send()
 
-
-
+def bg_cust_setup(to_email, count, ref, referred_by):
+	
+	# send welcome email
+	send_welcome_email(to_email, count, ref)
+	
+	# add referral
+	if referred_by:
+		signup = get_signup_by_ref(ref)	
+		referral = Referrals(signup=signup, code=referred_by,)
+		referral.save()
+		confirm_referral(referred_by)
+	
+	# increment counter
+	count = Counter.Query.all()
+	cur = None
+	for c in count:
+		cur = c
+	
+	try:
+		cur.count += 1
+		cur.save()
+	except:
+		pass
 
 def gen_alphanum_key():
     key = ''
@@ -101,21 +139,6 @@ def send_email(subject, body, to_email=DEFAULT_FROM_EMAIL):
 def current_time_aware():
     return datetime.datetime.utcnow().replace(tzinfo=utc)
 
-
-def get_count():
-
-	count = Counter.Query.all()
-	cur = None
-	for c in count:
-		cur = c
-	
-	try:
-		cur.count += 1
-		cur.save()
-	except:
-		pass
-	
-	return cur.count
 
 def get_signup_by_ref(ref):
 	signup = Signups.Query.get(ref=str(ref))
