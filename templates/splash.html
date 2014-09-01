@@ -8,7 +8,7 @@
 
 
 {% block body %}
-<div id="wrapper">
+<div id="wrapper" class="wrapper-page wrapper-flexi">
 	<!-- Start Header -->
 	<div id="header">
 	
@@ -47,89 +47,68 @@
 		</div>
 	
 	</div>
-	<!-- End Header -->
+	<!-- End Header -->	
+</div>
 
-	<!-- Start Content -->
 
-		<div class="container">
-				 
-            <div class="row">
-	        	
-	        	<div class="span12">
-	        	
-	        		<div class="inner">
-	        		
-	        			<div class="hero hero-narrrow">
-	        		
-	        			<h1>We find gifts for your girl.</h1>
-						<h2>Sign up to automate the way you keep her happy.</h2>
-						
-						<div class="clearfix"></div> 	
-						
-						<div class="subscribe">
-							
-							{% for error in form.non_field_errors %}
-                                {{error}}
-                            {% endfor %}
-                            
-                            {% if form.email.errors %}
-                                {{ form.email.errors }}
-                            {% endif %}
-                            
-							<form method="post" action="">
-		                        {% csrf_token %}
-		                        <div class="form-row">
-		                          
-		                            {{ form.email|add_class:"text login_input"}}
-		                            
-		                            
-		          					<input type="submit" name="register" value="Get Early Access" class="btn" data-loading-text="Loading..." />
-									<div class="clearfix"></div>
-		                        </div>
-		                        
-		                    </form>      
-									
-		                    {% comment %}
-							<form method="post" action="#" name="example"> 
-											
-								<div class="form-row">
-									<input placeholder="Email address" id="user_email" class="text login_input" type="text" name="user_email" required /> 
-									<input type="submit" name="register" value="Subscribe" class="btn" data-loading-text="Loading..." />
-									<div class="clearfix"></div>
-								</div>
-								
-							</form>
-							{% endcomment %}
-						
-						</div>
-						
-						<div class="clearfix"></div> 	
-							<div class="icons">
-									<span id="scroll1" class="glyph-item mega icon-arrow-down" aria-hidden="true"></span>
-							</div>
-				
-						</div>
-	
-	        		</div>
-	        		
-	        	</div>
-	        	
-            </div>  
-		
-		</div>
-	
+<div class="strip" id="content">
+    
 	<!-- End content -->	
 	
 	<div class="clearfix"></div> 	
-	
-</div>
-
-<div class="strip features" id="steps">
 
 	<div class="container">
 			 
         <div class="row">
 	    	
+	    	<div class="span12">
+	    	
+	        	<div class="inner align-center">
+	        	
+	        
+	    			</br></br>
+		        	<h1>We find gifts for your girl.</h1>
+					<h3>Sign up to automate the way you keep her happy.</h3>
+		        	</br>
+		        	<form method="post" action="#" name="example"> 
+									
+							<div class="form-row">
+								
+								<input type="submit" name="register" value="Get Started" class="btn" style="background-color: #50c029;" data-loading-text="Loading..." />
+								<div class="clearfix"></div>
+							</div>
+							
+						</form>
+		        	
+		        </div>
+	    	
+	    	</div> 
+	    </div>
+	    <div class="row">		        	
+	    </div>
+
+	</div>
+</div>
+
+<div class="strip" id="content">
+    
+	<!-- End content -->	
+	
+	<div class="clearfix"></div> 	
+
+	<div class="container">
+		<div class="row">		        	
+	    	<div class="span12">
+	    		<div class="inner">
+		    	</br></br>
+		    		<h1>Heres how it works</h1>	
+		    	</div>
+	    	</div>
+	    </div>
+        <div class="row">
+	    	<div class="span2">
+	    	</br>
+	    	</div>
 	    	<div class="span4">
 	    	
 	        	<div class="inner">
@@ -138,12 +117,12 @@
 	    	
 		        	<h3>Tell us about her</h3>
 		        	
-		        	<p>Gifts need to be personalized. You send us her facebook, pinterest, or other social media profiles so we can get to know her.</p>
+		        	<p>Gifts need to be personalized. You offer her demographic info and her facebook, pinterest, or other social media profiles (optional) so we can get to know her.</p>
 		        	
 		        </div>
 	    	
 	    	</div> 
-	    	
+	    </div><div class="row">
 	    	<div class="span4">
 	    	
 	        	<div class="inner">
@@ -152,12 +131,15 @@
 	    	
 		        	<h3>We find gifts</h3>
 		        	
-		        	<p>Every couple months, our algorithms and style team together find 2 or 3 gifts we think she would like. You pick your favorite and we ship it to you.</p>
+		        	<p>Roughly every month or two we show you three gifts that our fancy algorithms and style team think she would like. You pick your favorite and we ship it to you.</p>
 		        	
 		        </div>
 	    	
 	    	</div> 
-	    	
+	    </div><div class="row">
+	    	<div class="span2">
+	    	</br>
+	    	</div>
 	    	<div class="span4">
 	    	
 	        	<div class="inner">
@@ -172,13 +154,67 @@
 	    	
 	    	</div> 
 	    	
-	    	
 
-	    	<div class="clearfix"></div>
-	    	        	
+
+	    	<div class="clearfix"></div> 	        	
 	    </div>
 
 	</div>
+</div>
+<div class="strip" id="content">
+    
+	<!-- End content -->	
+	
+	<div class="clearfix"></div> 	
+
+	<div class="container">
+		<div class="row">		        	
+	    	<div class="span12">
+	    		<div class="inner">
+			    	</br></br>
+			    	<h1>Sounds great, how much?</h1>
+			    	<h3>Just <strong>$25</strong> / month per lady you are trying to impress</h3>
+			    
+			    	<ul>
+			    		<li>
+			    			A new gift mailed to you, roughly every six weeks (we randomize delivery dates)
+			    		</li>
+			    		<li>
+			    			You pick from a curated selection of gifts matching her profile
+			    		</li>
+			    		<li>
+			    			You rate her satisfaction with previous gifts so we keep getting better
+			    		</li>
+			    		<li>
+			    			You build street cred for knowing cool local brands
+			    		</li>
+			    		<li>
+			    			100% guaranteed to make her think you're a better catch than you are
+			    		</li>
+			    	</ul>
+			    	</br>
+			    <div class="align-center">
+			    	<form method="post" action="#" name="example"> 
+										
+						<div class="form-row">
+							
+							<input type="submit" name="register" value="Get Started" class="btn" style="background-color: #50c029;" data-loading-text="Loading..." />
+							<div class="clearfix"></div>
+						</div>
+						
+					</form>
+				</div>
+				</div>
+			    </div>
+	    	</div>
+	    </div>
+
+        <div class="row">
+	    
+	    </div>
+
+	</div>
+</div>
 {% endblock %}
 
 
