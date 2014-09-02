@@ -26,7 +26,8 @@ class Referrals(Object):
     pass
 class Counter(Object):
     pass
-
+class Recipients(Object):
+    pass
 
 def get_count():
 
@@ -100,17 +101,31 @@ def confirm_referral(ref):
 			msg.attach_alternative(html_content, "text/html")
 			msg.send()
 
-def bg_cust_setup(to_email, count, ref, referred_by):
+def recipient_demographics(ref, inps):
 	
+	signup = get_signup_by_ref(ref)
+	recipient = Recipients(signup=signup,
+							age=inps['age'],
+							style=inps['style'],
+							soc_one=inps['soc_one'],
+							soc_two=inps['soc_two'],
+							)
+	recipient.save()
+
+def bg_cust_setup(inps, count, ref, referred_by):
+	
+	to_email = inps['email']
 	# send welcome email
 	send_welcome_email(to_email, count, ref)
-	
+	recipient_demographics(ref, inps)
 	# add referral
+	"""
 	if referred_by:
 		signup = get_signup_by_ref(ref)	
 		referral = Referrals(signup=signup, code=referred_by,)
 		referral.save()
 		confirm_referral(referred_by)
+	"""
 	
 	# increment counter
 	count = Counter.Query.all()

@@ -8,49 +8,6 @@
 
 
 {% block body %}
-<div id="wrapper" class="wrapper-page wrapper-flexi">
-	<!-- Start Header -->
-	<div id="header">
-	
-		<div class="container">
-			<div class="row">
-				<div class="span12">
-				
-					<h1>
-						<a href="{% url 'splash' %}">
-						Surprisr
-						{% comment %}
-							<img src={% static "conversion/templates/images/logo.png" %} alt="Convert" />
-						{% endcomment %}
-						</a>
-					</h1>
-					
-					{% comment %}
-					<h2 class="menulink"><a href="#">Menu</a></h2>
-					
-					<!-- Start Menu -->
-					<div id="menu">
-						<ul>  
-							<li><a href="../index.html">Home</a></li>  
-							<li><a href="page.html">About</a></li> 
-							<li><a href="page.html">Blog</a></li> 
-							<li><a href="page.html">Pricing</a></li> 							
-							<li class="current"><a href="page.html">Download App</a></li> 
-						</ul> 
-					</div> 
-					<!-- End Menu -->
-					{% endcomment %}
-				</div>
-				<div class="clearfix"></div>
-			</div>
-			
-		</div>
-	
-	</div>
-	<!-- End Header -->	
-</div>
-
-
 <div class="strip" id="content">
     
 	<!-- End content -->	
@@ -70,15 +27,20 @@
 		        	<h1>We find gifts for your girl.</h1>
 					<h3>Sign up to automate the way you keep her happy.</h3>
 		        	</br>
-		        	<form method="post" action="#" name="example"> 
-									
-							<div class="form-row">
-								
-								<input type="submit" name="register" value="Get Started" class="btn" style="background-color: #50c029;" data-loading-text="Loading..." />
-								<div class="clearfix"></div>
-							</div>
-							
-						</form>
+		        	{% if request.GET.ref %}
+			    		<a href="{% url 'signup' %}?ref={{ request.GET.ref }}">
+				        	<div class="form-row">
+				        		<input type="submit" class="btn" value="Get Started" style="background-color: #0fba52;"/>
+				     		</div>
+				      </a>
+			    	{% else %}
+			    		<a href="{% url 'signup' %}">
+				        	<div class="form-row">
+				        		<input type="submit" class="btn" value="Get Started" style="background-color: #0fba52;"/>
+				     		</div>
+				      </a>
+			    	{% endif %}
+
 		        	
 		        </div>
 	    	
@@ -106,16 +68,14 @@
 	    	</div>
 	    </div>
         <div class="row">
-	    	<div class="span2">
-	    	</br>
-	    	</div>
+
 	    	<div class="span4">
 	    	
 	        	<div class="inner">
 	        	
-	        		<span class="glyph-item mega icon-user-female" aria-hidden="true" ></span>
+	        		
 	    	
-		        	<h3>Tell us about her</h3>
+		        	<h3><span class="glyph-item icon-user-female" aria-hidden="true" ></span> Tell us about her</h3>
 		        	
 		        	<p>Gifts need to be personalized. You offer her demographic info and her facebook, pinterest, or other social media profiles (optional) so we can get to know her.</p>
 		        	
@@ -123,20 +83,6 @@
 	    	
 	    	</div> 
 	    </div><div class="row">
-	    	<div class="span4">
-	    	
-	        	<div class="inner">
-	        	
-	        		<span class="glyph-item mega icon-magic-wand" aria-hidden="true" ></span>
-	    	
-		        	<h3>We find gifts</h3>
-		        	
-		        	<p>Roughly every month or two we show you three gifts that our fancy algorithms and style team think she would like. You pick your favorite and we ship it to you.</p>
-		        	
-		        </div>
-	    	
-	    	</div> 
-	    </div><div class="row">
 	    	<div class="span2">
 	    	</br>
 	    	</div>
@@ -144,9 +90,24 @@
 	    	
 	        	<div class="inner">
 	        	
-	        		<span class="glyph-item mega icon-heart" aria-hidden="true" ></span>
+	        		
 	    	
-		        	<h3>You look good</h3>
+		        	<h3><span class="glyph-item icon-magic-wand" aria-hidden="true" ></span> We find gifts</h3>
+		        	
+		        	<p>Roughly every month or two we show you three gifts that our fancy algorithms and style team think she would like. You pick your favorite and we ship it to you.</p>
+		        	
+		        </div>
+	    	
+	    	</div> 
+	    </div><div class="row">
+	    	
+	    	<div class="span4">
+	    	
+	        	<div class="inner">
+	        	
+	        		
+	    	
+		        	<h3><span class="glyph-item icon-heart" aria-hidden="true" ></span> You look good</h3>
 		        	
 		        	<p>You present her with a spontaneous personalized gift. She wasn't expecting it. You are so thoughtful. </p>
 		        	
@@ -193,16 +154,74 @@
 			    		</li>
 			    	</ul>
 			    	</br>
-			    <div class="align-center">
-			    	<form method="post" action="#" name="example"> 
-										
-						<div class="form-row">
-							
-							<input type="submit" name="register" value="Get Started" class="btn" style="background-color: #50c029;" data-loading-text="Loading..." />
-							<div class="clearfix"></div>
-						</div>
-						
-					</form>
+			    <div class="align-left">
+			    	
+			    	{% if request.GET.ref %}
+			    		<a href="{% url 'signup' %}?ref={{ request.GET.ref }}">
+				        	<div class="form-row">
+				        		<input type="submit" class="btn" value="Get Started" style="background-color: #0fba52;"/>
+				     		</div>
+				      </a>
+			    	{% else %}
+			    		<a href="{% url 'signup' %}">
+				        	<div class="form-row">
+				        		<input type="submit" class="btn" value="Get Started" style="background-color: #0fba52;"/>
+				     		</div>
+				      </a>
+			    	{% endif %}
+
+				</div>
+				</div>
+			    </div>
+	    	</div>
+	    </div>
+
+        <div class="row">
+	    
+	    </div>
+
+	</div>
+</div>
+
+<div class="strip" id="content">
+    
+	<!-- End content -->	
+	
+	<div class="clearfix"></div> 	
+
+	<div class="container">
+		<div class="row">		        	
+	    	<div class="span12">
+	    		<div class="inner align-right">
+			    	</br></br>
+			    	<h1>But don't take our word for it</h1>
+			    	<h3>"She recently told me I was 'so thoughtful'. What a service!"</h3>
+			    	<p> Alvin, Developer, San Francisco</p>
+			    	<h3>"I forgot our anniversary last week. Didn't matter."</h3>
+			    	<p> Kent, Chiropractor, Danville</p>
+			    	<h3>"My OkCupid life has uhh... improved substantially"</h3>
+			    	<p> Rich, Systems Analyst, The Dog Patch</p>
+			    
+			    	
+			    	</br>
+			    <div class="align-right">
+			    	
+
+			    	{% if request.GET.ref %}
+			    		<a href="{% url 'signup' %}?ref={{ request.GET.ref }}">
+				        	<div class="form-row">
+				        		<input type="submit" class="btn" value="Get Started" style="background-color: #0fba52;"/>
+				     		</div>
+				      </a>
+			    	{% else %}
+			    		<a href="{% url 'signup' %}">
+				        	<div class="form-row">
+				        		<input type="submit" class="btn" value="Get Started" style="background-color: #0fba52;"/>
+				     		</div>
+				      </a>
+			    	{% endif %}
+
+			    	
 				</div>
 				</div>
 			    </div>
