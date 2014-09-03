@@ -1,4 +1,6 @@
 from parse_rest.datatypes import Object
+from parse_rest.user import User as ParseUser
+
 import datetime
 from django.utils.timezone import utc
 from random import choice
@@ -19,10 +21,9 @@ from inlinestyler.utils import inline_css
 def count_words_at_url(number):
     return number
 
-
 class Signups(Object):
     pass
-class Referrals(Object):
+class UserReferrals(Object):
     pass
 class Counter(Object):
     pass
@@ -59,14 +60,14 @@ def send_welcome_email(to_email, count, ref):
 
 def confirm_referral(ref):
 	
-	referrer = Signups.Query.all().filter(ref=ref)
+	referrer = ParseUser.Query.all().filter(ref=ref)
 	referrer = [r for r in referrer]
 
 	if len(referrer) > 0:
 		referrer = referrer[0]
 		to_email = referrer.email
 		# send email to referrer
-		refs = Referrals.Query.all().filter(code=ref)
+		refs = UserReferrals.Query.all().filter(code=ref)
 
 		count = int(len([r for r in refs]))
 
@@ -104,7 +105,7 @@ def confirm_referral(ref):
 def recipient_demographics(ref, inps):
 	
 	signup = get_signup_by_ref(ref)
-	recipient = Recipients(signup=signup,
+	recipient = Recipients(user=signup,
 							age=inps['age'],
 							style=inps['style'],
 							soc_one=inps['soc_one'],
@@ -119,14 +120,14 @@ def bg_cust_setup(inps, count, ref, referred_by):
 	send_welcome_email(to_email, count, ref)
 	recipient_demographics(ref, inps)
 	# add referral
-	"""
+	
 	if referred_by:
 		signup = get_signup_by_ref(ref)	
-		referral = Referrals(signup=signup, code=referred_by,)
+		referral = UserReferrals(user=signup, code=referred_by,)
 		referral.save()
 		confirm_referral(referred_by)
-	"""
 	
+
 	# increment counter
 	count = Counter.Query.all()
 	cur = None
@@ -156,9 +157,12 @@ def current_time_aware():
 
 
 def get_signup_by_ref(ref):
-	signup = Signups.Query.get(ref=str(ref))
+	signup = ParseUser.Query.get(ref=str(ref))
 	return signup
 
+def get_parse_user_by_email(email):
+	user = User.Query.get(email=str(email))
+	return user
 
 
 def create_highrise_account(email, tag=None):

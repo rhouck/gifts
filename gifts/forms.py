@@ -13,11 +13,11 @@ class SubscribeForm(forms.Form):
 
     Style_Choices = (
         ('', ''),
-        ('trad', 'Traditional'),
-        ('athl', 'Athletic'),
-        ('fash', 'Fashionista'),
+        ('traditional', 'Traditional'),
+        ('athletic', 'Athletic'),
+        ('fashionista', 'Fashionista'),
         ('hip', 'Hip'),
-        ('book', 'Bookish'),
+        ('bookish', 'Bookish'),
     )
     style = forms.ChoiceField(choices=Style_Choices, required=False, label='Example')
     soc_one = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Social media link - Facebook, Pinterest, etc.'}), required=False,)

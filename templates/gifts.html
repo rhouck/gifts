@@ -27,13 +27,13 @@
 				{% if request.GET.ref %}
 		    		<a href="{% url 'signup' %}?ref={{ request.GET.ref }}">
 			        	<div class="form-row">
-			        		<input type="submit" class="btn" value="Get Started" style="background-color: #0fba52;"/>
+			        		<input type="submit" class="btn" value="Get Started for Free" style="background-color: #0fba52;"/>
 			     		</div>
 			      </a>
 		    	{% else %}
 		    		<a href="{% url 'signup' %}">
 			        	<div class="form-row">
-			        		<input type="submit" class="btn" value="Get Started" style="background-color: #0fba52;"/>
+			        		<input type="submit" class="btn" value="Get Started for Free" style="background-color: #0fba52;"/>
 			     		</div>
 			      </a>
 		    	{% endif %}

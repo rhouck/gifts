@@ -26,9 +26,10 @@ from rq import Queue
 from worker import conn
 q = Queue(connection=conn)
 """
+from parse_rest.user import User as ParseUser
 
 def splash(request):
-
+	"""
 	# get referral code if exists
 	inputs = request.GET if request.GET else None
 	form = ReferralForm(inputs)
@@ -70,7 +71,7 @@ def splash(request):
 			rev = str(reverse('confirmation', kwargs={'ref': ref}))
 			return HttpResponseRedirect(rev)	
 			
-			"""	
+			
 			# submit contact form
 			elif inputs['type'] == 'Contact' and con_form.is_valid():	
 				
@@ -80,8 +81,7 @@ def splash(request):
 				create_highrise_account(cd['email'], tag='contact-form')
 				
 				return HttpResponseRedirect(reverse('confirmation', kwargs={'message_type': 'contact'}))
-			"""
-	
+				
 		else:
 			raise Exception()
 
@@ -90,7 +90,8 @@ def splash(request):
 		
 		form.errors['__all__'] = form.error_class([err])
 		return render_to_response('splash.html', {'form': form}, context_instance=RequestContext(request))
-
+	"""
+	return render_to_response('splash.html', {}, context_instance=RequestContext(request))
 
 def signup(request):
 
@@ -113,7 +114,7 @@ def signup(request):
 			
 			# check if email already exists
 			
-			existing = Signups.Query.all().filter(email=cd['email'])
+			existing = ParseUser.Query.all().filter(email=cd['email'])
 			existing = [e for e in existing]
 			if existing:
 				raise Exception("Email already registered in system.")
@@ -123,19 +124,26 @@ def signup(request):
 
 			# create user
 			ref = gen_alphanum_key()
-			signup = Signups(email=cd['email'], ref=ref, count=count, password=cd['password'])
 			if LIVE:
-				signup.type = 'live'
-				signup.highrise_id = create_highrise_account(cd['email'], tag='signup')
+				env_type = 'live'
+				highrise_id = create_highrise_account(cd['email'], tag='signup')
 			else:
-				signup.type = 'test'
-			signup.save()
+				env_type = 'test'
+				highrise_id = None
+
+			email = cd['email'].lower()
+			signup = ParseUser.signup(email, cd['password'], email=email, ref=ref, count=count, type=env_type, highrise_id=highrise_id)
 			
 			result = django_rq.enqueue(bg_cust_setup, cd, count, ref, referred_by)
 			
-			#rev = str(reverse('confirmation', kwargs={'ref': ref}))
-			return HttpResponseRedirect("https://surprisr.chargify.com/h/3537446/subscriptions/new")	
-			
+			rev = str(reverse('confirmation', kwargs={'ref': ref}))
+			return HttpResponseRedirect(rev)	
+			"""
+			url = "https://surprisr.chargify.com/h/3537446/subscriptions/new"
+			if referred_by:
+				url += "?ref=%s" % (referred_by)
+			return HttpResponseRedirect(url)	
+			"""
 			
 		else:
 			raise Exception()
@@ -151,7 +159,7 @@ def signup(request):
 def confirmation(request, ref):
 	
 	signup = get_signup_by_ref(ref)	
-	return render_to_response('confirmation.html', {'ref': ref, 'count': signup.count}, context_instance=RequestContext(request))
+	return render_to_response('confirmation.html', {'ref': ref, 'count': 'signup.count'}, context_instance=RequestContext(request))
 	#else:
 	#	raise Http404
 
