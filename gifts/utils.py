@@ -16,11 +16,6 @@ from django.template import Context
 from inlinestyler.utils import inline_css
 
 
-
-
-def count_words_at_url(number):
-    return number
-
 class Signups(Object):
     pass
 class UserReferrals(Object):
@@ -161,7 +156,7 @@ def get_signup_by_ref(ref):
 	return signup
 
 def get_parse_user_by_email(email):
-	user = User.Query.get(email=str(email))
+	user = ParseUser.Query.get(email=str(email))
 	return user
 
 

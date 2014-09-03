@@ -157,11 +157,11 @@ def signup(request):
 
 
 def confirmation(request, ref):
-	
-	signup = get_signup_by_ref(ref)	
-	return render_to_response('confirmation.html', {'ref': ref, 'count': 'signup.count'}, context_instance=RequestContext(request))
-	#else:
-	#	raise Http404
+	try:
+		signup = get_signup_by_ref(ref)	
+		return render_to_response('confirmation.html', {'ref': ref, 'count': signup.count}, context_instance=RequestContext(request))
+	except:
+		raise Http404
 
 def gifts(request):
 	return render_to_response('gifts.html', {}, context_instance=RequestContext(request))
