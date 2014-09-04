@@ -114,8 +114,8 @@ def bg_cust_setup(inps, count, ref, referred_by):
 	# send welcome email
 	send_welcome_email(to_email, count, ref)
 	recipient_demographics(ref, inps)
-	# add referral
 	
+	# add referral	
 	if referred_by:
 		signup = get_signup_by_ref(ref)	
 		referral = UserReferrals(user=signup, code=referred_by,)

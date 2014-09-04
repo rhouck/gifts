@@ -25,6 +25,7 @@ class SubscribeForm(forms.Form):
     
     email = forms.EmailField(widget=forms.TextInput(attrs={'placeholder': 'Your Email Address'}))
     password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Your Password'}))
+    city = forms.CharField(max_length=50, min_length=2, widget=forms.TextInput(attrs={'placeholder': 'Your City'}))
 
 class ContactForm(forms.Form):
 	email = forms.EmailField(widget=forms.TextInput(attrs={'placeholder': 'Your Email Address'}))
